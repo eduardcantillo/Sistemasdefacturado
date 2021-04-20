@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+ <nav th:fragment="paginator">
+ <ul class="pagination">
+ 	
+ 	<li class="page-item">
+ 	<span class="page-link ml-1 mr-1" th:if="${page.first}" th:utext="#{text.paginator.first}"> </span>
+ 	<a class="btn btn-primary ml-1 mr-1" th:if="${not page.first}" th:href="@{${page.url}(page=0)}"
+ 	th:utext="#{text.paginator.first}">Primera</a>
+ 	</li>
+ 	
+ 	
+ 	<li class="page-item"><span class="page-link ml-1 mr-1" th:if="${not page.hasPrevious}" th:utext="#{text.paginator.previous}"> Anterior</span>
+ 	<a class="btn btn-primary mr-1 ml-1" th:if="${page.hasPrevious}" th:utext="#{text.paginator.previous}" th:href="@{${page.url}(page=${page.pagActual-2})}">Anterior</a></li>
+ 	
+ 	
+ 	<li class="page-item" th:each="item: ${page.items}">
+ 	<span class="page-link ml-1 mr-1" th:if="${item.actual}" th:utext="${item.numero}"></span>
+ 	<a class="btn btn-primary mr-1 ml-1" th:if="${not item.actual}" th:href="@{${page.url}(page=${item.numero-1})}" th:text="${item.numero}"></a>
+ 	</li>
+
+ 	
+ 	<li class="page-item"  ><span class="page-link ml-1 mr-1"  th:if="${not page.hasNext}"> Siguiente</span>
+ 	<a  class="btn btn-primary ml-1 mr-1" th:if="${page.hasNext}" th:utext="#{text.paginator.next}" th:href="@{${page.url}(page=${page.pagActual})}">siguiente</a></li>
+ 	
+ 	
+ 	<li class="page-item" >
+ 	<span class="page-link ml-1 mr-1" th:utext="#{text.paginator.last}"  th:if="${page.last}"> Ultima</span>
+ 	<a class="btn btn-primary ml-1 mr-1" th:if="${not  page.last}" th:utext="#{text.paginator.last}" th:href="@{${page.url}(page=${page.totalPaginas-1})}">Ultima</a>
+ 	</li>
+ 
+ </ul>
+ </nav>
+</body>
+</html>
